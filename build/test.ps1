@@ -4,7 +4,7 @@ $scriptPath = Split-Path -Parent $MyInvocation.MyCommand.Definition
 # comma seprated arguments need to be escaped like
 $uniteTestParams = New-Object System.Collections.ArrayList
 [void] $uniteTestParams.Add("/p:CollectCoverage=true")
-[void] $uniteTestParams.Add("/p:Exclude='\`"[xunit.runner*]*,[xunit.runner*]*\`"'")
+[void] $uniteTestParams.Add("/p:Exclude='\`"[xunit.runner*]*,[xunit.runner*]*,[SystemMonitor.ConsoleRunner*]\`"'")
 [void] $uniteTestParams.Add("/p:CoverletOutputFormat='\`"lcov,opencover\`"' /p:CoverletOutput=`"$scriptPath/../test/unit-test-coverage/`"")
 [void] $uniteTestParams.Add("/p:ThresholdType='\`"branch,method\`"'")
 [void] $uniteTestParams.Add("/p:Threshold=90")
@@ -12,9 +12,7 @@ $uniteTestParams = New-Object System.Collections.ArrayList
 $uniteTestParamString = $uniteTestParams -join ' '
 Invoke-Expression "dotnet test `"$scriptPath/../test/SystemMonitor.UnitTests/SystemMonitor.UnitTests.csproj`" $uniteTestParamString"
 
-if ($LASTEXITCODE -ne 0) {
-  exit $LASTEXITCODE
-}
+$uniteTestsExitCode = $LASTEXITCODE
 
 $reportGeneratorParams = New-Object System.Collections.ArrayList
 [void] $reportGeneratorParams.Add("$($Env:UserProfile)\.nuget\packages\reportgenerator\4.0.13.1\tools\netcoreapp2.0\ReportGenerator.dll")
@@ -23,3 +21,7 @@ $reportGeneratorParams = New-Object System.Collections.ArrayList
 
 $reportGeneratorParamString = $reportGeneratorParams -join ' '
 Invoke-Expression "dotnet $reportGeneratorParamString"
+
+if ($uniteTestsExitCode -ne 0) {
+  exit $uniteTestsExitCode
+}

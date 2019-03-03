@@ -37,9 +37,8 @@ namespace SystemMonitor.UnitTests.Core.Monitor
 
                 var serializedData = await serializer.SerializeAsync(data);
                 await reporter.ReportAsync(data);
-                Assert.Equal(serializedData, sw.ToString());
-            }
-                
+                Assert.Equal($"{serializedData}{Environment.NewLine}", sw.ToString());
+            }                
         }
     }
 }

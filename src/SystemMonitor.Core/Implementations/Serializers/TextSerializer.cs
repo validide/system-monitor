@@ -39,7 +39,7 @@ namespace SystemMonitor.Core.Implementations.Serializers
             if (IsValueType || IsStringType)
             {
                 stringBuilder.Append(Delimiter);
-                stringBuilder.Append(data);
+                AppendCellValue(stringBuilder, data.ToString());
             }
             else
             {

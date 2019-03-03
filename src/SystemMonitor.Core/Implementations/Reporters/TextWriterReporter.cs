@@ -21,7 +21,7 @@ namespace SystemMonitor.Core.Implementations.Reporters
         public async Task ReportAsync(IMonitorResult<TData> data)
         {
             var output = await _serializer.SerializeAsync(data);
-            await _textWriter.WriteAsync(output);
+            await _textWriter.WriteLineAsync(output);
         }
     }
 }
