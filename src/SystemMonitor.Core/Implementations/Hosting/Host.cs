@@ -33,7 +33,7 @@ namespace SystemMonitor.Core.Implementations.Hosting
             }
             catch (Exception ex)
             {
-                FailFast($"{Name} failed to start.", ex);
+                _logger.LogCritical(ex, $"{Name} failed to start.");
             }
             return Task.CompletedTask;
         }
@@ -46,9 +46,14 @@ namespace SystemMonitor.Core.Implementations.Hosting
             }
             catch (Exception ex)
             {
-                FailFast($"{Name} failed to stop correctly.", ex);
+                _logger.LogCritical(ex, $"{Name} failed to stop correctly.");
             }
             return Task.CompletedTask;
+        }
+
+        private void RunTasks(object state)
+        {
+            _ = RunTasksAsync(state);
         }
 
         private async Task RunTasksAsync(object state)
@@ -63,23 +68,6 @@ namespace SystemMonitor.Core.Implementations.Hosting
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"{Name}.{nameof(RunTasksAsync)} failed.");
-            }
-        }
-
-        private void RunTasks(object state)
-        {
-            _ = RunTasksAsync(state);
-        }
-
-        private void FailFast(string message, Exception exception)
-        {
-            try
-            {
-                _logger.LogCritical(exception, message);
-            }
-            finally
-            {
-                Environment.FailFast(message, exception);
             }
         }
     }

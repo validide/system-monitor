@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using SystemMonitor.Core.Implementations;
 using SystemMonitor.Core.Implementations.Reporters;
