@@ -22,12 +22,12 @@ namespace SystemMonitor.ConsoleRunner
             var host = new Host(
                 "Test Console Runner",
                 new[] {
-                    new SystemMonitorPipeline<string>(
-                        new SimpleMonitor<string>(() => new MonitorResult<string>
-                        {
-                            Value = $"{DateTime.UtcNow:HH:mm:ss} Hello!"
-                        }.AsIMonitorResult()),
-                        new TextWriterReporter<string>(Console.Out, new TextSerializer<string>(" "))
+                    new SystemMonitorPipeline<SystemDiagnosticsMonitorResult>(
+                        new SystemDiagnosticsMonitor(),
+                        new TextWriterReporter<SystemDiagnosticsMonitorResult>(
+                            Console.Out,
+                            new JsonSerializer<SystemDiagnosticsMonitorResult>()
+                        )
                     )
                 },
                 new TimeSpan(0, 0, 5),

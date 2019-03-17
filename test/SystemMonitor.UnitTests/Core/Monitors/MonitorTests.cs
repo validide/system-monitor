@@ -6,7 +6,7 @@ using Xunit;
 
 namespace SystemMonitor.UnitTests.Core.Monitor
 {
-    public class Monitor
+    public class MonitorTests
     {
         [Fact]
         public async Task GetDataAsync_NotNull()

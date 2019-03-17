@@ -14,7 +14,7 @@ using CoreHosting = SystemMonitor.Core.Implementations.Hosting;
 
 namespace SystemMonitor.UnitTests.Core.Hosting
 {
-    public class Host
+    public class HostTests
     {
         [Fact]
         public void Host_ContructorExceptions_1()

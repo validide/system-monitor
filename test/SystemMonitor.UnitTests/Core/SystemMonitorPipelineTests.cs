@@ -9,7 +9,7 @@ using Xunit;
 
 namespace SystemMonitor.UnitTests.Core
 {
-    public class SystemMonitorPipeline
+    public class SystemMonitorPipelineTests
     {
         [Fact]
         public void SystemMonitorPipeline_NullMonitor()
